@@ -149,6 +149,10 @@ if (_spawnRoll <= _spawnChance) then {
 	//_vehicle setDir round(random 360);
 	//_vehicle setPos _position_marker;
 	
+	// notify STARTUP
+	missionNamespace setVariable ["PVDZE_MIS_SBD", ["STARTUP", _supplyBoxModel]];
+	publicVariable "PVDZE_MIS_SBD";
+	
 	_event_marker = createMarker [ format ["loot_event_marker_%1", _start_time], _position_marker];
 	_event_marker setMarkerShape "ELLIPSE";
 	_event_marker setMarkerColor "ColorBlue";
@@ -188,7 +192,7 @@ if (_spawnRoll <= _spawnChance) then {
 		_supplyBox addBackpackCargoGlobal [_x, round(random 1)];
 	} forEach (_loot select 3);
 	
-	
+	// notify DROPPED
 	missionNamespace setVariable ["PVDZE_MIS_SBD", ["DROPPED", _supplyBoxModel]];
 	publicVariable "PVDZE_MIS_SBD";
 	
