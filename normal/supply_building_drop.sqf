@@ -8,7 +8,7 @@ private [
 	,"_spawnMarker"
 	,"_spawnRadius"
 	
-	,"_loot_lists"
+	,"_loot_pool"
 	
 	,"_spawnRoll"
 	,"_position_plane"
@@ -36,7 +36,7 @@ _spawnMarker = 'center';
 _spawnRadius = (HeliCrashArea/2);
 
 // Random loot lists
-_loot_lists = [
+_loot_pool = [
 /*
 	[ 
 		"" <-- SupplyBox Classname
@@ -118,8 +118,8 @@ if (_spawnRoll <= _spawnChance) then {
 	_position_marker = [(getMarkerPos _spawnMarker), 0, _spawnRadius, 10, 0, 2000, 0] call BIS_fnc_findSafePos;
 	_position_supplyBox = [_position_marker, 0, (_markerRadius - 100), 10, 0, 2000, 0] call BIS_fnc_findSafePos;
 	
-	// marker x > plane x & marker y < plane y
 	_dir_planeToSupplyBox = 0;
+	// 0 - 90
 	if ((_position_marker select 0) > (_position_plane select 0) && (_position_marker select 1) < (_position_plane select 1)) then {
 		_tmp_x = (_position_marker select 0) - (_position_plane select 0);
 		_tmp_y = (_position_plane select 1) - (_position_marker select 1);
@@ -175,7 +175,7 @@ if (_spawnRoll <= _spawnChance) then {
 	clearWeaponCargoGlobal _supplyBox;
 
 	// Choose loot
-	_loot = _loot_lists call BIS_fnc_selectRandom;
+	_loot = _loot_pool call BIS_fnc_selectRandom;
 	
     // Add loot
 	{
