@@ -37,131 +37,53 @@ _spawnRadius = (HeliCrashArea/2);
 
 // Random loot lists
 _loot_lists = [
+/*
+	[ 
+		[] <-- Weapon/toolbelt items
+		,[] <-- Magazines/items
+		,[] <-- Backpacks
+	]
+*/
 	[
-		[
-			"ItemEtool"
-			,"ItemEtool"
-		]
+		["ItemEtool","ItemEtool"]
 		,[
-			"PartWoodLumber"
-			,"PartWoodLumber"
-			,"PartWoodLumber"
-			,"PartWoodLumber"
-			,"PartWoodLumber"
-			,"PartWoodLumber"
-			
-			,"PartWoodPlywood"
-			,"PartWoodPlywood"
-			,"PartWoodPlywood"
-			,"PartWoodPlywood"
-			,"PartWoodPlywood"
-			,"PartWoodPlywood"
-			
-			,"ItemPole"
-			,"ItemPole"
-			,"ItemPole"
-			
+			"PartWoodLumber","PartWoodLumber","PartWoodLumber","PartWoodLumber","PartWoodLumber","PartWoodLumber"
+			,"PartWoodPlywood","PartWoodPlywood","PartWoodPlywood","PartWoodPlywood","PartWoodPlywood","PartWoodPlywood"
+			,"ItemPole","ItemPole","ItemPole"		
 			,"ItemComboLock"
-			
-			,"bulk_empty"
-			,"bulk_empty"
-			,"bulk_empty"
+			,"bulk_empty","bulk_empty","bulk_empty"
 		]
 		,[]
-	],[
-		[
-			"ItemToolbox"
-			,"ItemToolbox"
-		]
+	]
+	,[
+		["ItemToolbox","ItemToolbox"]
 		,[
-			"ItemTankTrap"
-			,"ItemTankTrap"
-			,"ItemTankTrap"
-			,"ItemTankTrap"
-			,"ItemTankTrap"
-			,"ItemTankTrap"
-			
-			,"ItemSandbag"
-			,"ItemSandbag"
-			,"ItemSandbag"
-			,"ItemSandbag"
-			,"ItemSandbag"
-			,"ItemSandbag"
-			
-			,"ItemWire"
-			,"ItemWire"
-			,"ItemWire"
-			,"ItemWire"
-			,"ItemWire"
-			,"ItemWire"
-			
-			,"bulk_empty"
-			,"bulk_empty"
-			,"bulk_empty"
+			"ItemTankTrap","ItemTankTrap","ItemTankTrap","ItemTankTrap","ItemTankTrap","ItemTankTrap"
+			,"ItemSandbag","ItemSandbag","ItemSandbag","ItemSandbag","ItemSandbag","ItemSandbag"
+			,"ItemWire","ItemWire","ItemWire","ItemWire","ItemWire","ItemWire"
+			,"bulk_empty","bulk_empty","bulk_empty"
 		]
 		,[]
-	],[
-		[
-			"ItemCrowbar"
-			,"ItemCrowbar"
-		]
+	]
+	,[
+		["ItemCrowbar","ItemCrowbar"]
 		,[
-			"ItemTentDomed"
-			,"ItemTentDomed"
-			
-			,"ItemTentDomed2"
-			,"ItemTentDomed2"
-			
-			,"CinderBlocks"
-			,"CinderBlocks"
-			,"CinderBlocks"
-			,"CinderBlocks"
-			,"CinderBlocks"
-			,"CinderBlocks"
-			
-			,"MortarBucket"
-			,"MortarBucket"
-			,"MortarBucket"
-			,"MortarBucket"
-			,"MortarBucket"
-			,"MortarBucket"
-			
-			,"bulk_empty"
-			,"bulk_empty"
-			,"bulk_empty"
+			"ItemTentDomed","ItemTentDomed"
+			,"ItemTentDomed2","ItemTentDomed2"
+			,"CinderBlocks","CinderBlocks","CinderBlocks","CinderBlocks","CinderBlocks","CinderBlocks"
+			,"MortarBucket","MortarBucket","MortarBucket","MortarBucket","MortarBucket","MortarBucket"
+			,"bulk_empty","bulk_empty","bulk_empty"
 		]
 		,[]
-	],[
-		[
-			"Sledgehammer"
-			,"Sledgehammer"
-		]
+	]
+	,[
+		["Sledgehammer","Sledgehammer"]
 		,[
-			"PartWoodPile"
-			,"PartWoodPile"
-			,"PartWoodPile"
-			,"PartWoodPile"
-			,"PartWoodPile"
-			,"PartWoodPile"
-			
-			,"PartGlass"
-			,"PartGlass"
-			,"PartGlass"
-			,"PartGlass"
-			,"PartGlass"
-			,"PartGlass"
-			
-			,"ItemLightBulb"
-			,"ItemLightBulb"
-			,"ItemLightBulb"
-			
-			,"ItemCanvas"
-			,"ItemCanvas"
-			,"ItemCanvas"
-			
-			,"bulk_empty"
-			,"bulk_empty"
-			,"bulk_empty"
+			"PartWoodPile","PartWoodPile","PartWoodPile","PartWoodPile","PartWoodPile","PartWoodPile"
+			,"PartGlass","PartGlass","PartGlass","PartGlass","PartGlass","PartGlass"			
+			,"ItemLightBulb","ItemLightBulb","ItemLightBulb"			
+			,"ItemCanvas","ItemCanvas","ItemCanvas"			
+			,"bulk_empty","bulk_empty","bulk_empty"
 		]
 		,[]
 	]
