@@ -39,13 +39,15 @@ _spawnRadius = (HeliCrashArea/2);
 _loot_lists = [
 /*
 	[ 
-		[] <-- Weapon/toolbelt items
+		"" <-- SupplyBox Classname
+		,[] <-- Weapon/toolbelt items
 		,[] <-- Magazines/items
 		,[] <-- Backpacks
 	]
 */
 	[
-		["ItemEtool","ItemEtool"]
+		"USVehicleBox"
+		,["ItemEtool","ItemEtool"]
 		,[
 			"PartWoodLumber","PartWoodLumber","PartWoodLumber","PartWoodLumber","PartWoodLumber","PartWoodLumber"
 			,"PartWoodPlywood","PartWoodPlywood","PartWoodPlywood","PartWoodPlywood","PartWoodPlywood","PartWoodPlywood"
@@ -56,7 +58,8 @@ _loot_lists = [
 		,[]
 	]
 	,[
-		["ItemToolbox","ItemToolbox"]
+		"USVehicleBox"
+		,["ItemToolbox","ItemToolbox"]
 		,[
 			"ItemTankTrap","ItemTankTrap","ItemTankTrap","ItemTankTrap","ItemTankTrap","ItemTankTrap"
 			,"ItemSandbag","ItemSandbag","ItemSandbag","ItemSandbag","ItemSandbag","ItemSandbag"
@@ -66,7 +69,8 @@ _loot_lists = [
 		,[]
 	]
 	,[
-		["ItemCrowbar","ItemCrowbar"]
+		"USVehicleBox"
+		,["ItemCrowbar","ItemCrowbar"]
 		,[
 			"ItemTentDomed","ItemTentDomed"
 			,"ItemTentDomed2","ItemTentDomed2"
@@ -77,7 +81,8 @@ _loot_lists = [
 		,[]
 	]
 	,[
-		["Sledgehammer","Sledgehammer"]
+		"USVehicleBox"
+		,["Sledgehammer","Sledgehammer"]
 		,[
 			"PartWoodPile","PartWoodPile","PartWoodPile","PartWoodPile","PartWoodPile","PartWoodPile"
 			,"PartGlass","PartGlass","PartGlass","PartGlass","PartGlass","PartGlass"			
@@ -92,7 +97,7 @@ _loot_lists = [
 _spawnRoll = random 1;
 if (_spawnRoll <= _spawnChance) then {
 
-	// get positions
+	// get position on the map border
 	_position_plane = [0, 0, 500];
 	switch (round(random 3)) do {
 		case 0: { // start north
@@ -108,11 +113,13 @@ if (_spawnRoll <= _spawnChance) then {
 			_position_plane = [(random 14800), 0, (_position_plane select 2)];
 		};
 	};
+	
+	// get position for marker & supplybox
 	_position_marker = [(getMarkerPos _spawnMarker), 0, _spawnRadius, 10, 0, 2000, 0] call BIS_fnc_findSafePos;
 	_position_supplyBox = [_position_marker, 0, (_markerRadius - 100), 10, 0, 2000, 0] call BIS_fnc_findSafePos;
-	_dir_planeToSupplyBox = 0;
 	
 	// marker x > plane x & marker y < plane y
+	_dir_planeToSupplyBox = 0;
 	if ((_position_marker select 0) > (_position_plane select 0) && (_position_marker select 1) < (_position_plane select 1)) then {
 		_tmp_x = (_position_marker select 0) - (_position_plane select 0);
 		_tmp_y = (_position_plane select 1) - (_position_marker select 1);
@@ -142,10 +149,6 @@ if (_spawnRoll <= _spawnChance) then {
 	//_vehicle setDir round(random 360);
 	//_vehicle setPos _position_marker;
 	
-	
-	_supplyBoxModel = "USVehicleBox";
-	
-	
 	_event_marker = createMarker [ format ["loot_event_marker_%1", _start_time], _position_marker];
 	_event_marker setMarkerShape "ELLIPSE";
 	_event_marker setMarkerColor "ColorBlue";
@@ -161,7 +164,7 @@ if (_spawnRoll <= _spawnChance) then {
 		_debug_marker setMarkerAlpha 1;
 	};
 
-	_supplyBox = createVehicle [_supplyBoxModel, _position_supplyBox, [], 0, "CAN_COLLIDE"];
+	_supplyBox = createVehicle [(_loot select 0), _position_supplyBox, [], 0, "CAN_COLLIDE"];
 	_supplyBox setDir round(random 360);
 	_supplyBox setPos _position_supplyBox;
 
@@ -177,13 +180,13 @@ if (_spawnRoll <= _spawnChance) then {
     // Add loot
 	{
 		_supplyBox addWeaponCargoGlobal [_x, round(random 5)];
-	} forEach (_loot select 0);
-	{
-		_supplyBox addMagazineCargoGlobal [_x, round(random 15)];
 	} forEach (_loot select 1);
 	{
-		_supplyBox addBackpackCargoGlobal [_x, round(random 1)];
+		_supplyBox addMagazineCargoGlobal [_x, round(random 15)];
 	} forEach (_loot select 2);
+	{
+		_supplyBox addBackpackCargoGlobal [_x, round(random 1)];
+	} forEach (_loot select 3);
 	
 	
 	missionNamespace setVariable ["PVDZE_MIS_SBD", ["DROPPED", _supplyBoxModel]];
