@@ -113,6 +113,14 @@ if (_spawnRoll <= _spawnChance) then {
 			_position_plane = [(random 14800), 0, (_position_plane select 2)];
 		};
 	};
+	if (_debug) then {
+		_debug_marker1 = createMarker [ format ["loot_event_debug_marker1_%1", _start_time], _position_plane];
+		_debug_marker1 setMarkerShape "ICON";
+		_debug_marker1 setMarkerType "mil_dot";
+		_debug_marker1 setMarkerColor "ColorBlue";
+		_debug_marker1 setMarkerAlpha 1;
+		_debug_marker1 setMarkerText "SBD_Plane_start";
+	};
 	
 	// get position for marker & supplybox
 	_position_marker = [(getMarkerPos _spawnMarker), 0, _spawnRadius, 10, 0, 2000, 0] call BIS_fnc_findSafePos;
@@ -153,19 +161,20 @@ if (_spawnRoll <= _spawnChance) then {
 	missionNamespace setVariable ["PVDZE_MIS_SBD", ["STARTUP", _supplyBoxModel]];
 	publicVariable "PVDZE_MIS_SBD";
 	
+	// Show marker on the map
 	_event_marker = createMarker [ format ["loot_event_marker_%1", _start_time], _position_marker];
 	_event_marker setMarkerShape "ELLIPSE";
 	_event_marker setMarkerColor "ColorBlue";
 	_event_marker setMarkerAlpha 0.5;
 	_event_marker setMarkerSize [(_markerRadius + 50), (_markerRadius + 50)];
 	_event_marker setMarkerText "@STR_M_SBD_01";
-	
 	if (_debug) then {
-		_debug_marker = createMarker [ format ["loot_event_debug_marker_%1", _start_time], _position_supplyBox];
-		_debug_marker setMarkerShape "ICON";
-		_debug_marker setMarkerType "mil_dot";
-		_debug_marker setMarkerColor "ColorBlue";
-		_debug_marker setMarkerAlpha 1;
+		_debug_marker2 = createMarker [ format ["loot_event_debug_marker2_%1", _start_time], _position_supplyBox];
+		_debug_marker2 setMarkerShape "ICON";
+		_debug_marker2 setMarkerType "mil_dot";
+		_debug_marker2 setMarkerColor "ColorBlue";
+		_debug_marker2 setMarkerAlpha 1;
+		_debug_marker2 setMarkerText "SBD_Plane_drop";
 	};
 
 	_supplyBox = createVehicle [(_loot select 0), _position_supplyBox, [], 0, "CAN_COLLIDE"];
@@ -201,6 +210,7 @@ if (_spawnRoll <= _spawnChance) then {
 	deleteVehicle _supplyBox;
 	deleteMarker _event_marker;
 	if (_debug) then {
-		deleteMarker _debug_marker;
+		deleteMarker _debug_marker1;
+		deleteMarker _debug_marker2;
 	};
 };
