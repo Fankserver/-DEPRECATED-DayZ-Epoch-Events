@@ -15,6 +15,7 @@ private [
 	,"_position_marker"
 	,"_position_supplyBox"
 	,"_dir_planeToSupplyBox"
+	,"_vehicle"
 	,"_tmp_x"
 	,"_tmp_y"
 	,"_supplyBoxModel"
@@ -153,13 +154,16 @@ if (_spawnRoll <= _spawnChance) then {
 	};
 
 	// create transport plane
-	//_vehicle = createVehicle ["C130J", _position_plane, [], 0, "FLYING"];
-	//_vehicle setDir round(random 360);
-	//_vehicle setPos _position_marker;
+	_vehicle = createVehicle ["C130J", _position_plane, [], 0, "FLY"];
+	_vehicle setDir _dir_planeToSupplyBox;
+	_vehicle setPos _position_plane;
+	_vehicle flyinHeight (_position_plane select 2);
 	
 	// notify STARTUP
 	missionNamespace setVariable ["PVDZE_MIS_SBD", ["STARTUP", _supplyBoxModel]];
 	publicVariable "PVDZE_MIS_SBD";
+	
+	sleep 30;
 	
 	// Show marker on the map
 	_event_marker = createMarker [ format ["loot_event_marker_%1", _start_time], _position_marker];
