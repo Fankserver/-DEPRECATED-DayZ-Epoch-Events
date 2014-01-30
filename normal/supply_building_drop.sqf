@@ -20,6 +20,11 @@ private [
 	,"_tmp_y"
 	,"_supplyBoxModel"
 	,"_position"
+	
+	,"_transport_vehicle"
+	,"_transport_group"
+	,"_transport_unit"
+	
 	,"_event_marker"
 	,"_debug_marker"
 	,"_supplyBox"
@@ -154,16 +159,25 @@ if (_spawnRoll <= _spawnChance) then {
 	};
 
 	// create transport plane
-	_vehicle = createVehicle ["C130J", _position_plane, [], 0, "FLY"];
-	_vehicle setDir _dir_planeToSupplyBox;
-	_vehicle setPos _position_plane;
-	_vehicle flyinHeight (_position_plane select 2);
+	_transport_vehicle = createVehicle ["C130J", _position_plane, [], 0, "FLY"];
+	_transport_vehicle setDir _dir_planeToSupplyBox;
+	_transport_vehicle setPos _position_plane;
+	_transport_vehicle flyinHeight (_position_plane select 2);
+	[_transport_vehicle, [(getDir _transport_vehicle), (getPos _transport_vehicle)], "C130J", true, "0"] call server_publishVeh;
+	
+	_transport_group = createGroup east;
+	_transport_unit = _transport_group createUnit ["Pierce_Light", [0,0,0], [], 0, "FORM"];
+	_transport_unit moveInDriver _transport_vehicle;
+	_transport_group addWaypoint [_position_supplyBox, 0];
 	
 	// notify STARTUP
-	missionNamespace setVariable ["PVDZE_MIS_SBD", ["STARTUP", _supplyBoxModel]];
+	missionNamespace setVariable ["PVDZE_MIS_SBD", ["STARTUP"]];
 	publicVariable "PVDZE_MIS_SBD";
 	
-	sleep 30;
+	waitUntil {
+		if ((_transport_vehicle distance [(_position_supplyBox select 0), (_position_supplyBox select 1), 400]) < 300) exitWith {true};
+		false;
+	};
 	
 	// Show marker on the map
 	_event_marker = createMarker [ format ["loot_event_marker_%1", _start_time], _position_marker];
@@ -180,7 +194,11 @@ if (_spawnRoll <= _spawnChance) then {
 		_debug_marker2 setMarkerAlpha 1;
 		_debug_marker2 setMarkerText "SBD_Plane_drop";
 	};
+	
+	// Choose loot
+	_loot = _loot_pool call BIS_fnc_selectRandom;
 
+	// Spawn supplybox
 	_supplyBox = createVehicle [(_loot select 0), _position_supplyBox, [], 0, "CAN_COLLIDE"];
 	_supplyBox setDir round(random 360);
 	_supplyBox setPos _position_supplyBox;
@@ -190,9 +208,6 @@ if (_spawnRoll <= _spawnChance) then {
 	
 	clearMagazineCargoGlobal _supplyBox;
 	clearWeaponCargoGlobal _supplyBox;
-
-	// Choose loot
-	_loot = _loot_pool call BIS_fnc_selectRandom;
 	
     // Add loot
 	{
@@ -206,8 +221,14 @@ if (_spawnRoll <= _spawnChance) then {
 	} forEach (_loot select 3);
 	
 	// notify DROPPED
-	missionNamespace setVariable ["PVDZE_MIS_SBD", ["DROPPED", _supplyBoxModel]];
+	missionNamespace setVariable ["PVDZE_MIS_SBD", ["DROPPED"]];
 	publicVariable "PVDZE_MIS_SBD";
+	
+	sleep 4;
+	
+	deleteVehicle _transport_unit;
+	_transport_vehicle setDamage 1;
+	deleteVehicle _transport_vehicle;
 	
 	sleep _wait_time;
 	
