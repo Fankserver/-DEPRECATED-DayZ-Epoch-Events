@@ -163,7 +163,7 @@ if (_spawnRoll <= _spawnChance) then {
 	_transport_vehicle setDir _dir_planeToSupplyBox;
 	_transport_vehicle setPos _position_plane;
 	_transport_vehicle flyinHeight (_position_plane select 2);
-	[_transport_vehicle, [(getDir _transport_vehicle), (getPos _transport_vehicle)], "C130J", true, "0"] call server_publishVeh;
+	[_transport_vehicle, [(getDir _transport_vehicle), (getPos _transport_vehicle)], "C130J", false, "0"] call server_publishVeh;
 	
 	_transport_group = createGroup east;
 	_transport_unit = _transport_group createUnit ["Pierce_Light", [0,0,0], [], 0, "FORM"];
