@@ -22,6 +22,7 @@ private [
 	,"_unit_position"
 	,"_unit"
 	,"_unit_random_gear"
+	,"_unit_backpack"
 	
 	,"_state"
 ];
@@ -55,7 +56,7 @@ _unit_sniper_pool = [
 _unit_gunner_pool = [
 	[
 		["RPK_74",["75Rnd_545x39_RPK","75Rnd_545x39_RPK","75Rnd_545x39_RPK","75Rnd_545x39_RPK"]]
-		,["M249_DZ",["100Rnd_556x45_M249","100Rnd_556x45_M249","100Rnd_556x45_M249"]]
+		,["M249_EP1_DZ",["100Rnd_556x45_M249","100Rnd_556x45_M249","100Rnd_556x45_M249"]]
 		,["M240_DZ",["100Rnd_762x51_M240","100Rnd_762x51_M240","100Rnd_762x51_M240"]]
 	]
 	,[
@@ -170,7 +171,10 @@ if (_spawnRoll <= _spawnChance) then {
 		} forEach (_unit_random_gear select 1);
 		
 		// add backpack
-		//_unit addBackpack (_unit_sniper_pool select 2);
+		_unit_backpack = (_unit_sniper_pool select 2) call BIS_fnc_selectRandom;
+		if (!isNull _unit_backpack) then {
+			_unit addBackpack _unit_backpack;
+		};
 		
 		// add item
 		//{
@@ -214,7 +218,10 @@ if (_spawnRoll <= _spawnChance) then {
 		} forEach (_unit_random_gear select 1);
 		
 		// add backpack
-		//_unit addBackpack (_unit_gunner_pool select 2);
+		_unit_backpack = (_unit_sniper_pool select 2) call BIS_fnc_selectRandom;
+		if (!isNull _unit_backpack) then {
+			_unit addBackpack _unit_backpack;
+		};
 		
 		// add item
 		//{
@@ -258,7 +265,10 @@ if (_spawnRoll <= _spawnChance) then {
 		} forEach (_unit_random_gear select 1);
 		
 		// add backpack
-		//_unit addBackpack (_unit_combat_pool select 2);
+		_unit_backpack = (_unit_sniper_pool select 2) call BIS_fnc_selectRandom;
+		if (!isNull _unit_backpack) then {
+			_unit addBackpack _unit_backpack;
+		};
 		
 		// add item
 		//{
